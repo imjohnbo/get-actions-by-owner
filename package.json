@@ -1,0 +1,33 @@
+{
+  "name": "get-actions-by-owner",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imjohnbo/get-actions-by-owner.git"
+  },
+  "scripts": {
+    "build": "ncc build index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imjohnbo/get-actions-by-owner/issues"
+  },
+  "homepage": "https://github.com/imjohnbo/get-actions-by-owner#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.5",
+    "@actions/github": "^4.0.0",
+    "@vercel/ncc": "^0.24.1"
+  },
+  "devDependencies": {
+    "husky": "^4.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && git add dist/"
+    }
+  }
+}

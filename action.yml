@@ -1,0 +1,16 @@
+name: 'Get Actions By Owner'
+description: 'Get public actions of a given GitHub owner (user or organization)'
+author: 'John Bohannon'
+inputs:
+  owner:
+    description: 'Owner (user or organization)'
+    required: true
+  token:
+    description: 'Authentication token'
+    required: false
+outputs:
+  actions:
+    description: 'URL(s) to action(s)'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
