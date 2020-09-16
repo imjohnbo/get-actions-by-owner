@@ -19,8 +19,6 @@ const getUrlToAction = async (repository) => {
             repo,
             path
         });
-
-        console.log(action);
     
         if (action && action.type === 'file' && action.size > 0) {
             url = repository.html_url;
