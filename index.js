@@ -17,7 +17,7 @@ const getActionsFromOwnerRepos = async (owner) => {
 
   for await (const response of octokit.paginate.iterator(octokit.repos.listForUser, { username: owner })) {
     reposByOwner = response.data;
-    const actionsInPage = await Promise.all(reposByOwner.filter(r => r.size > 0).map(getUrlToAction));
+    const actionsInPage = (await Promise.all(reposByOwner.filter(r => r.size > 0).map(getUrlToAction))).filter(a => a.url);
     actions = actions.concat(actionsInPage);
   }
 
