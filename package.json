@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/imjohnbo/get-actions-by-owner#readme",
   "dependencies": {
+    "@actions/artifact": "^0.3.5",
     "@actions/core": "^1.2.5",
     "@actions/github": "^4.0.0",
-    "@vercel/ncc": "^0.24.1"
+    "@vercel/ncc": "^0.24.1",
+    "csv-writer": "^1.6.0"
   },
   "devDependencies": {
     "husky": "^4.3.0"
