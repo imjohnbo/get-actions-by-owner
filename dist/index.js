@@ -101,7 +101,7 @@ async function run () {
 
     await createArtifactFromCsv();
 
-    setOutput();
+    setOutput(actions);
   } catch (error) {
     core.setFailed(error.message);
   }
