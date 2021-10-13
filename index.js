@@ -14,12 +14,15 @@ const getActionsFromOwnerRepos = async (owner) => {
   let actions = [];
 
   core.info(`Retrieving actions by: ${owner}`);
+  core.info(`Beginning rate limit: ${octokit.rest.rateLimit.get()}`);
 
-  for await (const response of octokit.paginate.iterator(octokit.repos.listForUser, { username: owner })) {
+  for await (const response of octokit.paginate.iterator(octokit.rest.repos.listForUser, { username: owner })) {
     reposByOwner = response.data;
     const actionsInPage = (await Promise.all(reposByOwner.filter(r => r.size > 0).map(getUrlToAction))).filter(a => a.url);
     actions = actions.concat(actionsInPage);
   }
+
+  core.info(`Ending rate limit: ${octokit.rest.rateLimit.get()}`);
 
   return actions;
 };
@@ -33,7 +36,7 @@ const getUrlToAction = async (repository) => {
 
     core.info(`Checking if ${owner}/${repo} is an action...`);
 
-    const { data: action } = await octokit.repos.getContent({
+    const { data: action } = await octokit.rest.repos.getContent({
       owner,
       repo,
       path
@@ -46,6 +49,14 @@ const getUrlToAction = async (repository) => {
     if (url) {
       core.info(`${owner}/${repo} seems to be an action at url ${url}`);
     }
+
+    // Also:
+    // - updated_at
+    // - forks
+    // - language
+    // - watchers
+    // - open_issues
+    // 
 
     return {
       url: url
