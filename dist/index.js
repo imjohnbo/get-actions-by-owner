@@ -15162,7 +15162,7 @@ const getActionsFromOwnerRepos = async (owner) => {
   let actions = [];
 
   core.info(`Retrieving actions by: ${owner}`);
-  core.info(`Beginning rate limit: ${octokit.rest.rateLimit.get()}`);
+  core.info(`Beginning rate limit: ${JSON.stringify(octokit.rest.rateLimit.get())}`);
 
   for await (const response of octokit.paginate.iterator(octokit.rest.repos.listForUser, { username: owner })) {
     reposByOwner = response.data;
@@ -15170,7 +15170,7 @@ const getActionsFromOwnerRepos = async (owner) => {
     actions = actions.concat(actionsInPage);
   }
 
-  core.info(`Ending rate limit: ${octokit.rest.rateLimit.get()}`);
+  core.info(`Ending rate limit: ${JSON.stringify(octokit.rest.rateLimit.get())}`);
 
   return actions;
 };
